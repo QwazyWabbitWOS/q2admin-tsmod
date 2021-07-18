@@ -400,7 +400,10 @@ void q_strupr(char* c)
 {
 	while (*c)
 	{
-		*c = toupper((*c));
+		if (islower((*c)))
+		{
+			*c = toupper((*c));
+		}
 		c++;
 	}
 }
