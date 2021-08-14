@@ -1278,7 +1278,7 @@ void  checkVariableValid(edict_t *ent, int client, char *value);
 
 //*** UPDATE START ***
 // md4.c
-unsigned Com_BlockChecksum (void *buffer, int length);
+//unsigned Com_BlockChecksum (void *buffer, int length);
 
 // Pooy's shit
 extern char  client_msg[256];
