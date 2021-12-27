@@ -36,12 +36,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #pragma warning(disable : 4127)	// conditional expression is constant
 #pragma warning(disable : 4018)	// signed/unsigned mismatch
 #pragma warning(disable : 4305)	// truncation from const double to float
-#if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #pragma warning(disable : 4459)	// declaration of 'var' hides global declaration.
 #endif
 
-#endif
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
@@ -597,7 +595,7 @@ pmove_t;
 #define RF_SHELL_BLUE  4096
 
 // player_state_t->refdef flags
-#define RDF_UNDERWATER  1  // warp the screen as apropriate
+#define RDF_UNDERWATER  1  // warp the screen as appropriate
 #define RDF_NOWORLDMODEL 2  // used for player configuration screen
 
 //
