@@ -5,6 +5,13 @@ This is Q2Admin with R1CH's security patches applied, and a couple tweaks
 to prevent kicking of players for false positives (Q2Admin would think a
 player was a bot when they were merely lagging badly.)
 
+NOTE:
+This version of the dll needs to be placed in the quake2/debug or quake2/release
+subdirectory with the default name for the dll. It then loads the game dll from
+the quake2/mod folder without needing to rename the game dll to gamex86.real.dll.
+If you want to keep the renaming convention, set quake2dirsupport = FALSE in the
+zb_init.c file and rebuild. <QwazyWabbit>
+ 
 Original Q2Admin readme.txt follows:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
