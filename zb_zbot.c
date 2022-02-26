@@ -1501,7 +1501,7 @@ void List_Admin_Commands(edict_t *ent,int client)
 void Read_Admin_cfg(void)
 {
 	FILE	*f;
-	char	name[512];
+	char	name[512] = { 0 };
 	int i;
 	int elements;
 
@@ -1843,20 +1843,20 @@ int ADMIN_process_command(edict_t *ent,int client)
 priv_t private_commands[PRIVATE_COMMANDS];
 int private_command_count;
 
-void stuff_private_commands(int client,edict_t *ent)
+void stuff_private_commands(int client, edict_t* ent)
 {
 	unsigned int i;
-	char temp[256];
+	char temp[4096];
 
-	proxyinfo[client].private_command = ltime+10;
+	proxyinfo[client].private_command = ltime + 10;
 
-	for(i = 0; i < PRIVATE_COMMANDS; i++)
+	for (i = 0; i < PRIVATE_COMMANDS; i++)
 	{
 		if (private_commands[i].command[0])
 		{
 			//stuff this
-			sprintf(temp,"%s\r\n",private_commands[i].command);
-			stuffcmd(ent,temp);
+			sprintf(temp, "%s\n", private_commands[i].command);
+			stuffcmd(ent, temp);
 		}
 		proxyinfo[client].private_command_got[i] = false;
 	}

@@ -189,7 +189,7 @@ server.cfg file.
 
 PLEASE NOTE THAT Q2ADMIN ONLY RUNS WITH THE GLIBC VERSION
 OF QUAKE2 FOR LINUX.  It will run with the non-glibc 
-version but allot of features seam to be broken when
+version but a lot of features seem to be broken when
 running it with that version.  Use at your own risk.
                                                     
 

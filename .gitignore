@@ -10,3 +10,4 @@ ipch/
 *.suo
 *.vcxproj.user
 .vs/
+.depends

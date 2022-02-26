@@ -35,6 +35,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <windows.h>
 #endif
 
+//QwazyWabbit//
+/* Restored original "release" folder functionality.
+This works on Windows per Shane's original readme.txt
+by loading the game dll for the appropriate architecture.
+Read and follow the instructions in his readme.txt.
+
+The q2admin dll should be located in <Q2root>\release\ or <Q2root\debug\ and must be
+named per the target processor architecture as defined by the quake2
+engine being used. (e.g. gamex86_64.dll or gamei386.dll on Windows)
+The q2admin dll will load the mod dll of the same name from the mod folder.
+*/
+
 #ifdef __GNUC__
 void *hdll = NULL;
 
@@ -60,10 +72,15 @@ void *hdll = NULL;
 	#error Unknown GNUC OS
 #endif
 
-#elif defined(WIN32)
+#elif defined(_WIN32) && !defined(_M_X64)
 HINSTANCE hdll;
-#define DLLNAME   "gamex86.real.dll"  // Not sure how this was supposed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
+#define DLLNAME   "gamex86.dll"
 #define DLLNAMEMODDIR "gamex86.real.dll"
+#elif defined (_M_X64)
+HINSTANCE hdll;
+#define DLLNAME   "gamex86_64.dll"
+#define DLLNAMEMODDIR "gamex86_64.real.dll"
+
 #else
 #error Unknown OS
 #endif

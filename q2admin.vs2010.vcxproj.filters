@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GNUmakefile" />
-    <None Include="BSDmakefile" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="zbot.rc">

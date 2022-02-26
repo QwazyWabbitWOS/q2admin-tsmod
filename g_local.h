@@ -1096,7 +1096,7 @@ void *q2a_memset( void *dest, int c, size_t count );
 #else
 
 #define q2a_strcpy   strcpy
-#define q2a_strncpy   strncpy
+#define q2a_strncpy  strncpy
 #define q2a_strcat   strcat
 #define q2a_strcmp   strcmp
 #define q2a_strstr   strstr
@@ -1108,7 +1108,7 @@ void *q2a_memset( void *dest, int c, size_t count );
 
 #define q2a_memcmp   memcmp
 #define q2a_memcpy   memcpy
-#define q2a_memmove   memmove
+#define q2a_memmove  memmove
 #define q2a_memset   memset
 
 #endif
