@@ -591,7 +591,6 @@
     <CustomBuild Include="q2adminlrcon.txt" />
     <CustomBuild Include="q2adminspawn.txt" />
     <CustomBuild Include="q2adminvote.txt" />
-    <CustomBuild Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="g_local.h" />
@@ -602,6 +601,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GNUmakefile" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="zbot.rc" />
