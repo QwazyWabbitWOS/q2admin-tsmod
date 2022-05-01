@@ -1,18 +1,17 @@
 
-# Version: q2admin1.17.48-tsmod-2
+# Version: q2admin 1.17.48-tsmod-2
 
-This is Q2Admin with R1CH's security patches applied, and a couple tweaks
-to prevent kicking of players for false positives (Q2Admin would think a
-player was a bot when they were merely lagging badly.)
+This is Q2Admin with R1CH's security patches applied, and a couple tweaks to prevent kicking of players for false positives (Q2Admin would think a player was a bot when they were merely lagging badly.)
+
+Versions 1.17.46 and later fix a bug in the way q2admin calculated flood protection thresholds. The bug could cause a player to be kicked for flooding the server when this was not intended. The algorithm now works correctly.
 
 NOTE:
-This version of the dll needs to be placed in the quake2/debug or quake2/release
-subdirectory with the default name for the dll. It then loads the game dll from
-the quake2/mod folder without needing to rename the game dll to gamex86.real.dll.
-If you want to keep the renaming convention, set quake2dirsupport = "No" in the
-q2admin.txt file and uncomment the line by removing the leading semicolon. 
-Note: quake2dirsupport is set TRUE by default in the dll.
+This version of the dll needs to be placed in the quake2/debug or quake2/release subdirectory with the default name for the dll. It then loads the game dll from
+the quake2/mod folder without needing to rename the game dll to gamex86.real.dll. If you want to keep the renaming convention, set quake2dirsupport = "No" in the
+q2admin.txt file and uncomment the line by removing the leading semicolon. Note: quake2dirsupport is set TRUE by default in the dll.
 <QwazyWabbit>
+
+Assume your game is called mymod. Your dll's would be named and placed as shown below. This has been tested with r1q2, q2pro and q2rtx servers.
 
 ## Windows:
 	c:\quake2\release\gamex86.dll - The Q2admin dll
@@ -24,6 +23,11 @@ Note: quake2dirsupport is set TRUE by default in the dll.
 ## Using the renaming method under Windows where quake2dirsupport is "No".
 	c:\quake2\mymod\gamex86.dll - The Q2admin dll
 	c:\quake2\mymod\gamex86.real.dll - The mymod dll
+
+## Using the renaming method under Linux where quake2dirsupport is "No".
+	
+	quake2/mymod/gamex86.so - The Q2admin dll
+	quake2/mymod/gamex86.real.so - The mymod dll
 
 Original Q2Admin readme.txt follows:
 
