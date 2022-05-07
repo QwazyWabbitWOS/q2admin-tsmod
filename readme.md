@@ -29,7 +29,18 @@ Assume your game is called mymod. Your dll's would be named and placed as shown 
 	quake2/mymod/gamex86.so - The Q2admin dll
 	quake2/mymod/gamex86.real.so - The mymod dll
 
-Original Q2Admin readme.txt follows:
+# Building on Windows with Visual Studio 2019 or VS2022
+The VS2019 project depends on the existence of a special Q2DIR system environment variable for placement of the DLL directly into your Quake2 path.
+You can set this via CMD or Powershell command lines or via the Settings | Advanced system settings | Environment Variables dialog or run this batch file in an Administrator CMD window.
+
+`@echo off`<br>
+`set Q2DIR=c:\quake2` (where `c:\quake2` represents the root of your Quake2 game tree)<br>
+`end`<br>
+
+This method is used so VS Projects don't have to know the absolute path to the game folder and if Q2DIR does not exist, the build will safely fail before overwriting any game DLLs unexpectedly. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a Batch Rebuild of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin.
+ 
+
+# Original Q2Admin readme.txt:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
