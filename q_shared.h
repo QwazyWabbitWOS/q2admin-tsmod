@@ -91,7 +91,7 @@ typedef enum{false, true} qboolean;
 #define MAX_TOKEN_CHARS  128  // max length of an individual token
 
 #define MAX_QPATH   64  // max length of a quake game pathname
-#define MAX_OSPATH   128  // max length of a filesystem pathname
+#define MAX_OSPATH   260  // max length of a filesystem pathname
 
 //
 // per-level limits
@@ -103,6 +103,7 @@ typedef enum{false, true} qboolean;
 #define MAX_SOUNDS   256  // so they cannot be blindly increased
 #define MAX_IMAGES   256
 #define MAX_ITEMS   256
+#define MAX_GENERAL			(MAX_CLIENTS*2)	// general config strings
 
 
 // game print flags
@@ -158,23 +159,17 @@ struct cplane_s;
 
 extern vec3_t vec3_origin;
 
-#define nanmask (255<<23)
+#define	nanmask (255<<23)
 
-#define IS_NAN(x) (((*(int *)&x)&nanmask)==nanmask)
+#define	IS_NAN(x) (((*(int *)&x)&nanmask)==nanmask)
 
-#if !defined C_ONLY
-extern long Q_ftol( float f );
-#else
-#define Q_ftol( f ) ( long ) (f)
-#endif
-
-#define DotProduct(x,y)   (x[0]*y[0]+x[1]*y[1]+x[2]*y[2])
-#define VectorSubtract(a,b,c) (c[0]=a[0]-b[0],c[1]=a[1]-b[1],c[2]=a[2]-b[2])
-#define VectorAdd(a,b,c)  (c[0]=a[0]+b[0],c[1]=a[1]+b[1],c[2]=a[2]+b[2])
-#define VectorCopy(a,b)   (b[0]=a[0],b[1]=a[1],b[2]=a[2])
-#define VectorClear(a)   (a[0]=a[1]=a[2]=0)
-#define VectorNegate(a,b)  (b[0]=-a[0],b[1]=-a[1],b[2]=-a[2])
-#define VectorSet(v, x, y, z) (v[0]=(x), v[1]=(y), v[2]=(z))
+#define DotProduct(x,y)			(x[0]*y[0]+x[1]*y[1]+x[2]*y[2])
+#define VectorSubtract(a,b,c)	(c[0]=a[0]-b[0],c[1]=a[1]-b[1],c[2]=a[2]-b[2])
+#define VectorAdd(a,b,c)		(c[0]=a[0]+b[0],c[1]=a[1]+b[1],c[2]=a[2]+b[2])
+#define VectorCopy(a,b)			(b[0]=a[0],b[1]=a[1],b[2]=a[2])
+#define VectorClear(a)			(a[0]=a[1]=a[2]=0)
+#define VectorNegate(a,b)		(b[0]=-a[0],b[1]=-a[1],b[2]=-a[2])
+#define VectorSet(v, x, y, z)	(v[0]=(x), v[1]=(y), v[2]=(z))
 
 void VectorMA (vec3_t veca, float scale, vec3_t vecb, vec3_t vecc);
 
@@ -203,21 +198,21 @@ int BoxOnPlaneSide (vec3_t emins, vec3_t emaxs, struct cplane_s *plane);
 float anglemod(float a);
 float LerpAngle (float a1, float a2, float frac);
 
-#define BOX_ON_PLANE_SIDE(emins, emaxs, p) \
-(((p)->type < 3)?      \
-(          \
-((p)->dist <= (emins)[(p)->type])? \
-1        \
-:         \
-(         \
-((p)->dist >= (emaxs)[(p)->type])?\
-2       \
-:        \
-3       \
-)         \
-)          \
-:          \
-BoxOnPlaneSide( (emins), (emaxs), (p)))
+#define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
+	(((p)->type < 3)?						\
+	(										\
+		((p)->dist <= (emins)[(p)->type])?	\
+			1								\
+		:									\
+		(									\
+			((p)->dist >= (emaxs)[(p)->type])?\
+				2							\
+			:								\
+				3							\
+		)									\
+	)										\
+	:										\
+		BoxOnPlaneSide( (emins), (emaxs), (p)))
 
 void ProjectPointOnPlane( vec3_t dst, const vec3_t p, const vec3_t normal );
 void PerpendicularVector( vec3_t dst, const vec3_t src );
@@ -267,22 +262,22 @@ qboolean Info_Validate (char *s);
 
 /*
 ==============================================================
- 
+
 SYSTEM SPECIFIC
- 
+
 ==============================================================
 */
 
-extern int curtime;// time returned by last Sys_Milliseconds
+extern	int	curtime;		// time returned by last Sys_Milliseconds
 
 int  Sys_Milliseconds (void);
 void Sys_Mkdir (char *path);
 
 // large block stack allocation routines
-void *Hunk_Begin (int maxsize);
-void *Hunk_Alloc (int size);
-void Hunk_Free (void *buf);
-int  Hunk_End (void);
+void	*Hunk_Begin (int maxsize);
+void	*Hunk_Alloc (int size);
+void	Hunk_Free (void *buf);
+int		Hunk_End (void);
 
 // directory searching
 #define SFF_ARCH    0x01
@@ -294,10 +289,9 @@ int  Hunk_End (void);
 /*
 ** pass in an attribute mask of things you wish to REJECT
 */
-char *Sys_FindFirst(char *path, unsigned musthave, unsigned canthave);
-char *Sys_FindNext( unsigned musthave, unsigned canthave);
-void Sys_FindClose(void);
-
+char	*Sys_FindFirst (char *path, unsigned musthave, unsigned canthave );
+char	*Sys_FindNext ( unsigned musthave, unsigned canthave );
+void	Sys_FindClose (void);
 
 // this is only here so the functions in q_shared.c and q_shwin.c can link
 void Sys_Error (char *error, ...);
@@ -315,12 +309,12 @@ CVARS (console variables)
 #ifndef CVAR
 #define CVAR
 
-#define CVAR_ARCHIVE 1 // set to cause it to be saved to vars.rc
-#define CVAR_USERINFO 2 // added to userinfo  when changed
-#define CVAR_SERVERINFO 4 // added to serverinfo when changed
-#define CVAR_NOSET  8 // don't allow change from console at all,
-// but can be set from the command line
-#define CVAR_LATCH  16 // save changes until server restart
+#define	CVAR_ARCHIVE	1	// set to cause it to be saved to vars.rc
+#define	CVAR_USERINFO	2	// added to userinfo  when changed
+#define	CVAR_SERVERINFO	4	// added to serverinfo when changed
+#define	CVAR_NOSET		8	// don't allow change from console at all,
+							// but can be set from the command line
+#define	CVAR_LATCH		16	// save changes until server restart
 
 // nothing outside the Cvar_*() functions should modify these fields!
 typedef struct cvar_s
@@ -912,13 +906,14 @@ ELEMENTS COMMUNICATED ACROSS THE NET
 #define CS_MAXCLIENTS  30
 #define CS_MAPCHECKSUM  31  // for catching cheater maps
 
-#define CS_MODELS   32
-#define CS_SOUNDS   (CS_MODELS+MAX_MODELS)
-#define CS_IMAGES   (CS_SOUNDS+MAX_SOUNDS)
-#define CS_LIGHTS   (CS_IMAGES+MAX_IMAGES)
-#define CS_ITEMS   (CS_LIGHTS+MAX_LIGHTSTYLES)
-#define CS_PLAYERSKINS  (CS_ITEMS+MAX_ITEMS)
-#define MAX_CONFIGSTRINGS (CS_PLAYERSKINS+MAX_CLIENTS)
+#define	CS_MODELS			32
+#define	CS_SOUNDS			(CS_MODELS+MAX_MODELS)
+#define	CS_IMAGES			(CS_SOUNDS+MAX_SOUNDS)
+#define	CS_LIGHTS			(CS_IMAGES+MAX_IMAGES)
+#define	CS_ITEMS			(CS_LIGHTS+MAX_LIGHTSTYLES)
+#define	CS_PLAYERSKINS		(CS_ITEMS+MAX_ITEMS)
+#define CS_GENERAL			(CS_PLAYERSKINS+MAX_CLIENTS)
+#define	MAX_CONFIGSTRINGS	(CS_GENERAL+MAX_GENERAL)
 
 //QW// The 2080 magic number comes from q_shared.h of the original game.
 // No game mod can go over this 2080 limit.

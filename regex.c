@@ -31,6 +31,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 #define _GNU_SOURCE
 
+#define STDC_HEADERS 1
+
 /* We need this for `regex.h', and perhaps for the Emacs include files.  */
 #include <sys/types.h>
 
@@ -4892,11 +4894,7 @@ int eflags;
 from either regcomp or regexec.   We don't use PREG here.  */
 
 size_t
-regerror (errcode, preg, errbuf, errbuf_size)
-int errcode;
-const regex_t *preg;
-char *errbuf;
-size_t errbuf_size;
+regerror (int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 {
 	const char *msg;
 	size_t msg_size;

@@ -14,6 +14,9 @@
 #this nice line comes from the linux kernel makefile
 ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
 
+# On 64-bit OS use the command: setarch i386 make all
+# to obtain the 32-bit binary DLL on 64-bit Linux.
+
 CC = gcc -std=c99 -Wall
 
 CFLAGS =-O2 -fPIC -DARCH="$(ARCH)" -DSTDC_HEADERS
