@@ -306,6 +306,8 @@ game_export_t* GetGameAPI(game_import_t* import)
 		}
 	}
 
+	gi.dprintf("Q2admin loaded game library %s\n", dllname);
+
 #ifdef __GNUC__
 	getapi = (GAMEAPI*)dlsym(hdll, "GetGameAPI");
 #elif defined(WIN32)
