@@ -6,6 +6,8 @@
 ; directory.
 ;
 
+// Change this to match your server IP address
+serverip ""
 
 ;
 ; Enable/disable main zbot detection.
