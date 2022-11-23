@@ -5,22 +5,35 @@ This is Q2Admin by Shane Powell with R1CH's security patches applied, and a coup
 
 Versions 1.17.46 and later fix a bug in the way q2admin calculated flood protection thresholds. The bug could cause a player to be kicked for flooding the server when this was not intended. The algorithm now works correctly.
 
-NOTE:
-This version of the dll needs to be placed in the quake2/debug or quake2/release subdirectory with the default name for the dll. It then loads the game dll from
-the quake2/mod folder without needing to rename the game dll to gamex86.real.dll. If you want to keep the renaming convention, set quake2dirsupport = "No" in the
-q2admin.txt file and uncomment the line by removing the leading semicolon. Note: quake2dirsupport is set TRUE by default in the dll.
+## NOTE:
+This version of the dll wants to be placed in the `quake2/debug` or `quake2/release` subdirectory with the default name for the dll. Then q2admin loads the game dll from the quake2/mod folder without needing to rename the game dll to gamex86.real.dll. If you want to keep the renaming convention, set quake2dirsupport = "No" in the
+q2admin.txt file and uncomment the line by removing the leading semicolon.
+Note: quake2dirsupport is set TRUE by default in the dll, causing the non-renamed dll to be launched from the mod folder.
+
+## On Linux and Windows
+The q2admin dll should be located in quake2/release/ or quake2/debug/ and must be
+named per the target processor architecture as defined by the Quake2
+engine being used. The DLL name is automatically set when you compile q2admin in your environment.
+For example: gamex86_64.dll or gamex86.dll on Windows or gamex86_64.so or gamei386.so on Linux.
+
+The q2admin dll will load the mod dll of the same name from the mod folder named in the command line.
+
+Thus: quake2/release/gamex86_64.so the q2admin module, is loaded by the engine and the q2admin then loads quake2/yourgame/gamex86_64.so to launch the mod.
+
+Note: r1q2 seeks and loads quake2/(release or debug)/gamex86_64.dll or gamex86_64.so automatically. To obtain the same functionality in Q2PRO
+you must write: `+set sys_forcegamelib quake2/release/gamex86_64.so` on the command line that launches the server.
 <QwazyWabbit>
 
-Assume your game is called mymod. Your dll's would be named and placed as shown below. This has been tested with r1q2, q2pro and q2rtx servers.
+Let's assume your game is called mymod. Your dll's would be named and placed as shown below.
 
 ## Windows:
 	c:\quake2\release\gamex86.dll - The Q2admin dll
 	c:\quake2\mymod\gamex86.dll - The mymod dll
 ## Linux
-	quake2/release/gamex86.so - The q2admin dll
+	quake2/release/gamex86.so - The Q2admin dll
 	quake2/mymod/gamex86.so - The mymod dll
 
-## Using the renaming method under Windows where quake2dirsupport is "No".
+## Alternatively using the renaming method under Windows where quake2dirsupport is "No".
 	c:\quake2\mymod\gamex86.dll - The Q2admin dll
 	c:\quake2\mymod\gamex86.real.dll - The mymod dll
 
@@ -37,7 +50,7 @@ You can set this via CMD or Powershell command lines or via the Settings | Advan
 `set Q2DIR=c:\quake2` (where `c:\quake2` represents the root of your Quake2 game tree)<br>
 `end`<br>
 
-This method is used so VS Projects don't have to know the absolute path to the game folder and if Q2DIR does not exist, the build will safely fail before overwriting any game DLLs unexpectedly. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a Batch Rebuild of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin.
+This method is used so VS Projects don't have to know the absolute path to the game folder. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a `Batch Rebuild` of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin. Under Linux, the GNUmakefile builds an un-stripped shared object (.so) file so it's debuggable under gdb.
  
 
 # Original Q2Admin readme.txt:
