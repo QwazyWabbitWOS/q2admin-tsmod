@@ -1,7 +1,7 @@
 
 # Version: q2admin 1.17.48-tsmod-2
 
-This is Q2Admin with R1CH's security patches applied, and a couple tweaks to prevent kicking of players for false positives (Q2Admin would think a player was a bot when they were merely lagging badly.)
+This is Q2Admin by Shane Powell with R1CH's security patches applied, and a couple tweaks to prevent kicking of players for false positives (Q2Admin would think a player was a bot when they were merely lagging badly.)
 
 Versions 1.17.46 and later fix a bug in the way q2admin calculated flood protection thresholds. The bug could cause a player to be kicked for flooding the server when this was not intended. The algorithm now works correctly.
 
