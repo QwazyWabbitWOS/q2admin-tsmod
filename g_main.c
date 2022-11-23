@@ -51,19 +51,26 @@ The q2admin dll will load the mod dll of the same name from the mod folder.
 void* hdll = NULL;
 
 #ifdef LINUXAXP
+#define DLLNAME   "gameaxp.so"
 #define DLLNAME   "gameaxp.real.so"
 #elif defined(SOLARIS_INTEL)
+#define DLLNAME   "gamei386.so"
 #define DLLNAME   "gamei386.real.so"
 #elif defined(SOLARIS_SPARC)
+#define DLLNAME   "gamesparc.so"
 #define DLLNAME   "gamesparc.real.so"
 #elif defined (LINUX)
 #if defined __i386__
+#define DLLNAME   "gamei386.so"
 #define DLLNAME "gamei386.real.so"
 #elif defined __x86_64__
+#define DLLNAME   "gamex86_64.so"
 #define DLLNAME "gamex86_64.real.so"
 #elif defined __arm__ 
+#define DLLNAME   "gamearm.so"
 #define DLLNAME "gamearm.real.so"
 #elif defined __aarch64__
+#define DLLNAME   "gamearch64.so"
 #define DLLNAME "gameaarch64.real.so"
 #else
 #error Unknown architecture
