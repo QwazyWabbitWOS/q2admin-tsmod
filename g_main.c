@@ -36,15 +36,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 
 //QwazyWabbit//
-/* Restored original "release" folder functionality.
+/*
+
+Restored original "release" folder functionality.
 This works on Windows per Shane's original readme.txt
 by loading the game dll for the appropriate architecture.
 Read and follow the instructions in his readme.txt.
 
-The q2admin dll should be located in <Q2root>\release\ or <Q2root\debug\ and must be
-named per the target processor architecture as defined by the quake2
-engine being used. (e.g. gamex86_64.dll or gamei386.dll on Windows)
-The q2admin dll will load the mod dll of the same name from the mod folder.
+The q2admin dll should be located in quake2/release/ or quake2/debug/ and must be
+named per the target processor architecture as defined by the Quake2
+engine being used. For example: gamex86_64.dll or gamex86.dll on Windows or
+gamex86_64.so or gamei386.so on Linux.
+
+The q2admin dll will load the mod dll of the same name from the mod folder named
+in the command line.
+
+Thus: quake2/release/gamex86_64.so (the q2admin dll is loaded by the engine and
+the q2admin dll loads quake2/game/gamex86_64.so to launch the mod.
+
+Note: r1q2 does this automatically. To obtain the same functionality in Q2PRO
+you must write: +set sys_forcegamelib quake2/release/gamex86_64.so
+on the command line that launches the server.
+
 */
 
 #ifdef __GNUC__
