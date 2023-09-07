@@ -61,6 +61,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // the "gameversion" client command will print this plus compile date
 #define GAMEVERSION    "baseq2"
 
+#ifndef _DEBUG
+#define BUILD	"Release"
+#else
+#define BUILD	"Debug"
+#endif
+
 // protocol bytes that can be directly added to messages
 #define svc_muzzleflash   1
 #define svc_muzzleflash2  2
