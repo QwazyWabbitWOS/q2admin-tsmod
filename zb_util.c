@@ -42,11 +42,15 @@ void stuffcmd(edict_t *e, char *s)
 */
 int Q_stricmp(const char* s1, const char* s2)
 {
+
+	if (s1 == s2)
+		return 0;
+
 	int result = 0;
 	const unsigned char* uc1 = (const unsigned char*)s1;
 	const unsigned char* uc2 = (const unsigned char*)s2;
 
-	while ((result = Q_tolower(*uc1) - Q_tolower(*uc2++)) == 0)
+	while ((result = tolower(*uc1) - tolower(*uc2++)) == 0)
 		if (*uc1++ == '\0')
 			break;
 
