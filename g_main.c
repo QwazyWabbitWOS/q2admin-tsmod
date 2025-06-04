@@ -270,7 +270,7 @@ game_export_t* GetGameAPI(game_import_t* import)
 
 #ifdef __GNUC__
 	loadtype = soloadlazy ? RTLD_LAZY : RTLD_NOW;
-	sprintf(dllname, "%s/%s", moddir, DLLNAME);
+	sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
 	hdll = dlopen(dllname, loadtype);
 #elif defined(WIN32)
 	if (quake2dirsupport)
@@ -297,7 +297,7 @@ game_export_t* GetGameAPI(game_import_t* import)
 #endif
 
 #ifdef __GNUC__
-		sprintf(dllname, "%s/%s", moddir, DLLNAME);
+		sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
 #elif defined(WIN32)
 		if (quake2dirsupport)
 		{

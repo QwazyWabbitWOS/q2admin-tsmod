@@ -5,12 +5,14 @@ This is Q2Admin by Shane Powell with R1CH's security patches applied and a coupl
 
 Versions 1.17.46 and later fix a bug in the way q2admin calculated flood protection thresholds. The bug could cause a player to be kicked for flooding the server when this was not intended. The algorithm now works correctly.
 
-## NOTE:
+## NOTE
+
 This version of the dll wants to be placed in the `quake2/debug` or `quake2/release` subdirectory with the default name for the dll. Then q2admin loads the game dll from the quake2/mod folder without needing to rename the game dll to gamex86.real.dll. If you want to keep the renaming convention, set quake2dirsupport = "No" in the
 q2admin.txt file and uncomment the line by removing the leading semicolon.
 Note: quake2dirsupport is set TRUE by default in the dll, causing the non-renamed dll to be launched from the mod folder.
 
 ## On Linux and Windows
+
 The q2admin dll should be located in quake2/release/ or quake2/debug/ and must be
 named per the target processor architecture as defined by the Quake2
 engine being used. The DLL name is automatically set when you compile q2admin in your environment.
@@ -22,41 +24,45 @@ Thus: quake2/release/gamex86_64.so the q2admin module, is loaded by the engine a
 
 Note: r1q2 seeks and loads quake2/(release or debug)/gamex86_64.dll or gamex86_64.so automatically. To obtain the same functionality in Q2PRO
 you must write: `+set sys_forcegamelib quake2/release/gamex86_64.so` on the command line that launches the server.
-<QwazyWabbit>
 
 Let's assume your game is called mymod. Your dll's would be named and placed as shown below.
 
-## Windows:
-	c:\quake2\release\gamex86.dll - The Q2admin dll
-	c:\quake2\mymod\gamex86.dll - The mymod dll
+## Windows
+
+  c:\quake2\release\gamex86.dll - The Q2admin dll
+  c:\quake2\mymod\gamex86.dll - The mymod dll
+
 ## Linux
-	quake2/release/gamex86.so - The Q2admin dll
-	quake2/mymod/gamex86.so - The mymod dll
 
-## Alternatively using the renaming method under Windows where quake2dirsupport is "No".
-	c:\quake2\mymod\gamex86.dll - The Q2admin dll
-	c:\quake2\mymod\gamex86.real.dll - The mymod dll
+  quake2/release/gamex86.so - The Q2admin dll
+  quake2/mymod/gamex86.real.so - The mymod dll
 
-## Using the renaming method under Linux where quake2dirsupport is "No".
-	
-	quake2/mymod/gamex86.so - The Q2admin dll
-	quake2/mymod/gamex86.real.so - The mymod dll
+## Alternatively using the renaming method under Windows where quake2dirsupport is "No"
 
-# Building on Windows with Visual Studio 2019 or VS2022
+  c:\quake2\mymod\gamex86.dll - The Q2admin dll
+  c:\quake2\mymod\gamex86.real.dll - The mymod dll
+
+## Using the renaming method under Linux where quake2dirsupport is "No"
+
+  quake2/mymod/gamex86.so - The Q2admin dll
+  quake2/mymod/gamex86.real.so - The mymod dll
+
+## Building on Windows with Visual Studio 2019 or VS2022
+
 The VS2019 project depends on the existence of a special Q2DIR system environment variable for placement of the DLL directly into your Quake2 path.
 You can set this via CMD or Powershell command lines or via the Settings | Advanced system settings | Environment Variables dialog or run this batch file in an Administrator CMD window.
 
-`@echo off`<br>
-`set Q2DIR=c:\quake2` (where `c:\quake2` represents the root of your Quake2 game tree)<br>
-`end`<br>
+`@echo off`
+`set Q2DIR=c:\quake2` (where `c:\quake2` represents the root of your Quake2 game tree)
+`end`
 
 This method is used so VS Projects don't have to know the absolute path to the game folder. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a `Batch Rebuild` of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin. Under Linux, the GNUmakefile builds an un-stripped shared object (.so) file so it's debuggable under gdb.
 
-# Building on Linux
-Clone this repository. Change to the directory containing the clone. Using `make all` will clean the build directory, rescan the source files for dependencies and recompile all source files and create the dll in your default architecture. Use cp or mv to place the dll into `quake2/release/`. Use `setarch i386 make all` to build a 32-bit dll on x64 Linux platforms. Refer to the comments in GNUmakefile for more details. `make clean` and `make depends` are also valid.
- 
+## Building on Linux
 
-# Original Q2Admin readme.txt:
+Clone this repository. Change to the directory containing the clone. Using `make all` will clean the build directory, rescan the source files for dependencies and recompile all source files and create the dll in your default architecture. Use cp or mv to place the dll into `quake2/release/`. Use `setarch i386 make all` to build a 32-bit dll on x64 Linux platforms. Refer to the comments in GNUmakefile for more details. `make clean` and `make depends` are also valid.
+
+## Original Q2Admin readme.txt
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -4220,7 +4226,7 @@ v1.8          -   9 June     - Added reconnect_checklevel to allow a less strict
                              - Fixed a bug that stoppd Q2 Variant (http://www.ionwerks.net/defunkt/action/q2v.htm) 
                                from working.
 v1.9          -  11 June     - Fixed with v1.8 crashing linux servers (Seams there is a difference to the way 
-															 that linux quake2 handles events to the win32 quake2 server).
+                               that linux quake2 handles events to the win32 quake2 server).
 v1.10         -  12 June     - Changed the msg kick to only effect msg mode less than 4. 
 v1.11         -   2 May      - Added four new options that can be used in q2admin.txt: dopversion,
                                hackuserdisplay, defaultreconnectmessage & skincrashmsg. An explanation on
