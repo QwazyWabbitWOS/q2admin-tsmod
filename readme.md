@@ -11,16 +11,16 @@ This version of the dll wants to be placed in the `quake2/debug` or `quake2/rele
 q2admin.txt file and uncomment the line by removing the leading semicolon.
 Note: quake2dirsupport is set TRUE by default in the dll, causing the non-renamed dll to be launched from the mod folder.
 
-## On Linux and Windows
+## On Windows
 
-The q2admin dll should be located in quake2/release/ or quake2/debug/ and must be
+The q2admin dll can be located in quake2/release/ or quake2/debug/ and must be
 named per the target processor architecture as defined by the Quake2
 engine being used. The DLL name is automatically set when you compile q2admin in your environment.
-For example: gamex86_64.dll or gamex86.dll on Windows or gamex86_64.so or gamei386.so on Linux.
+For example: gamex86_64.dll or gamex86.dll.
 
 The q2admin dll will load the mod dll of the same name from the mod folder named in the command line.
 
-Thus: quake2/release/gamex86_64.so the q2admin module, is loaded by the engine and the q2admin then loads quake2/yourgame/gamex86_64.so to launch the mod.
+Thus: quake2/release/gamex86_64.dll the q2admin module, is loaded by the engine and the q2admin then loads quake2/yourgame/gamex86_64.dll to launch the mod.
 
 Note: r1q2 seeks and loads quake2/(release or debug)/gamex86_64.dll or gamex86_64.so automatically. To obtain the same functionality in Q2PRO
 you must write: `+set sys_forcegamelib quake2/release/gamex86_64.so` on the command line that launches the server.
@@ -34,7 +34,7 @@ Let's assume your game is called mymod. Your dll's would be named and placed as 
 
 ## Linux
 
-  quake2/release/gamex86.so - The Q2admin dll
+  quake2/mymod/gamex86.so - The Q2admin dll
   quake2/mymod/gamex86.real.so - The mymod dll
 
 ## Alternatively using the renaming method under Windows where quake2dirsupport is "No"
