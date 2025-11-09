@@ -42,10 +42,7 @@ Let's assume your game is called mymod. Your dll's would be named and placed as 
   c:\quake2\mymod\gamex86.dll - The Q2admin dll
   c:\quake2\mymod\gamex86.real.dll - The mymod dll
 
-## Using the renaming method under Linux where quake2dirsupport is "No"
-
-  quake2/mymod/gamex86.so - The Q2admin dll
-  quake2/mymod/gamex86.real.so - The mymod dll
+The quake2 engines and q2admin behave differently under Linux than they do under Windows. The q2admin DLL must be in the same folder as the game mod dll and it always loads the game dll with the .real. insertion.
 
 ## Building on Windows with Visual Studio 2019 or VS2022
 
@@ -2287,7 +2284,7 @@ Banning can be enabled and disabled by the 'nickbanning_enable',
 'ipbanning_enable' and 'chatbanning_enable' commands.  
 
 They can be enabled/disabled in the q2admin.txt by changing the
-there values to "Yes" or "No".
+their values to "Yes" or "No".
 
 e.g.
 nickbanning_enable "Yes"
