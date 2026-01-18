@@ -268,25 +268,29 @@ game_export_t* GetGameAPI(game_import_t* import)
 	zbot_testchar1 = '0' + (int)(9.9 * random());
 	zbot_testchar2 = '0' + (int)(9.9 * random());
 
+#ifdef WIN32
+	if (quake2dirsupport) {
+		sprintf(dllname, "./%s/%s", moddir, DLLNAME);
+	}
+	else {
+		sprintf(dllname, "./%s/%s", moddir, DLLNAMEMODDIR);
+	}
+#endif
+
 #ifdef __GNUC__
 	loadtype = soloadlazy ? RTLD_LAZY : RTLD_NOW;
 	sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
 	hdll = dlopen(dllname, loadtype);
 #elif defined(WIN32)
-	if (quake2dirsupport)
-	{
-		sprintf(dllname, "%s/%s", moddir, DLLNAME);
-	}
-	else
-	{
-		sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
-	}
-
 	hdll = LoadLibrary(dllname);
 #endif
 
 	if (hdll == NULL)
 	{
+#if defined WIN32
+		unsigned long stat = GetLastError();
+		gi.dprintf("Unable to load mod DLL %s, error %u.\n", dllname, stat);
+#endif
 		// try the baseq2 directory...
 		sprintf(dllname, "baseq2/%s", DLLNAME);
 
@@ -296,33 +300,16 @@ game_export_t* GetGameAPI(game_import_t* import)
 		hdll = LoadLibrary(dllname);
 #endif
 
-#ifdef __GNUC__
-		sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
-#elif defined(WIN32)
-		if (quake2dirsupport)
-		{
-			sprintf(dllname, "%s/%s", moddir, DLLNAME);
-		}
-		else
-		{
-			sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
-		}
-#endif
-
 		if (hdll == NULL)
 		{
 #if defined(WIN32)
-			unsigned long stat = GetLastError();
+			stat = GetLastError();
 			gi.dprintf("Unable to load DLL %s, error %u.\n", dllname, stat);
 			return &globals;
 #else
 			gi.dprintf("Unable to load DLL %s.\n", dllname);
 			return &globals;
 #endif
-		}
-		else
-		{
-			gi.dprintf("Unable to load DLL %s, loading baseq2 DLL.\n", dllname);
 		}
 	}
 
