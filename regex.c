@@ -85,8 +85,8 @@ char *realloc ();
 #endif
 
 char *q2admin_malloc (int size);
-char *q2admin_realloc ();
-void q2admin_free ();
+char *q2admin_realloc (char* oldmem, int newsize);
+void q2admin_free (char* mem);
 
 /* Define the syntax stuff for \<, \>, etc.  */
 

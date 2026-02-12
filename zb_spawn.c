@@ -47,7 +47,7 @@ spawncmd_t;
 #define SPAWN_RE  2
 
 spawncmd_t spawncmds[SPAWN_MAXCMDS];
-long long maxspawn_cmds = 0;
+size_t maxspawn_cmds = 0;
 
 
 

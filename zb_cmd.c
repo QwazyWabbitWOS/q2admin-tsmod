@@ -1849,7 +1849,7 @@ int getClientsFromArg(int client, edict_t *ent, char *cp, char **text)
 	int clienti;
 	unsigned int like, maxi;
 	regex_t r;
-	char strbuffer[sizeof(buffer)];
+	static char strbuffer[sizeof(buffer)];
 	
 	maxi = 0;
 	
@@ -2048,7 +2048,7 @@ edict_t *getClientFromArg(int client, edict_t *ent, int *cleintret, char *cp, ch
 	int clienti, foundclienti;
 	unsigned int like;
 	regex_t r;
-	char strbuffer[sizeof(buffer)];
+	static char strbuffer[sizeof(buffer)];
 	
 	foundclienti = -1;
 	

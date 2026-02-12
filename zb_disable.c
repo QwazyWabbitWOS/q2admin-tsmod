@@ -419,7 +419,7 @@ void disableDelRun(int startarg, edict_t *ent, int client)
 		
 	maxdisable_cmds--;
 	
-	gi.cprintf (ent, PRINT_HIGH, "Disbled command deleted\n");
+	gi.cprintf (ent, PRINT_HIGH, "Disabled command was deleted\n");
 }
 
 
