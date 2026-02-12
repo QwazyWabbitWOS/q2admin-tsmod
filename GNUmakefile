@@ -11,6 +11,8 @@
 # On 64-bit OS use the command: setarch i386 make all
 # to obtain the 32-bit binary DLL on 64-bit Linux.
 
+.DEFAULT_GOAL := game
+
 #this nice line comes from the linux kernel makefile
 ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
 
@@ -23,7 +25,7 @@ CFLAGS =-O2 -fPIC -DARCH="$(ARCH)" -DSTDC_HEADERS
 LDFLAGS = -ldl -lm -shared
 
 ifeq ($(ARCH),i386)
-CFLAGS +=-m32 -DSTDC_HEADERS -I/usr/include
+CFLAGS +=-m32 -I/usr/include
 endif
 
 # Msys2 on Windows for MinGW
@@ -43,42 +45,60 @@ CFLAGS += -DLINUX
 LIBTOOL = otool
 endif
 
-# Note: Windows uses regex.c but Linux builds use the system's regex.
+SHLIBEXT=so
+#set position independent code
+SHLIBCFLAGS=-fPIC
+
+# Build directory
+BUILD_DIR = build$(ARCH)
+# Ensure build directory exists
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
 # zb_clib is used by MinGW. See: Q2ADMINCLIB
-OUTFILES = g_main.o \
-	zb_ban.o \
-	zb_checkvar.o \
-	zb_cmd.o \
-	zb_clib.o \
-	zb_disable.o \
-	zb_flood.o \
-	zb_init.o \
-	zb_log.o \
-	zb_lrcon.o \
-	zb_msgqueue.o \
-	zb_spawn.o \
-	zb_util.o \
-	zb_vote.o \
-	zb_zbot.o \
-	zb_zbotcheck.o
+# List of source files
+GAME_SRCS = \
+	g_main.c \
+	zb_ban.c \
+	zb_checkvar.c \
+	zb_cmd.c \
+	zb_clib.c \
+	zb_disable.c \
+	zb_flood.c \
+	zb_init.c \
+	zb_log.c \
+	zb_lrcon.c \
+	zb_msgqueue.c \
+	zb_spawn.c \
+	zb_util.c \
+	zb_vote.c \
+	zb_zbot.c \
+	zb_zbotcheck.c
 
-game$(ARCH).so: $(OUTFILES)
-	$(CC) $(CFLAGS) $(OUTFILES) $(LDFLAGS) -o game$(ARCH).so
+GAME_OBJS = $(GAME_SRCS:%.c=$(BUILD_DIR)/%.o)
+
+# Pattern rule to place objects in build directory
+$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(SHLIBCFLAGS) -MMD -MP -MF $(@:.o=.d) -o $@ -c $<
+
+-include $(GAME_OBJS:.o=.d)
+
+# Build all object files that are out-of-date
+game: $(GAME_OBJS) game$(ARCH).$(SHLIBEXT)
+
+# Main target: depends on all object files
+game$(ARCH).$(SHLIBEXT) : $(GAME_OBJS)
+	$(CC) $(CFLAGS) -shared -o $@ $(GAME_OBJS) -ldl -lm
 	$(LIBTOOL) -r $@
+	file $@
 
-zip: game$(ARCH).so
-	strip game$(ARCH).so
-	zip -9 q2admin-game$(ARCH).zip game$(ARCH).so
-
-clean:
-	rm -f $(OUTFILES) game$(ARCH).so
-
-depends:
-	$(CC) $(CFLAGS) -MM *.c > .depends
-
+# Build everything (always rebuild all objects and the shared library)
 all:
 	$(MAKE) clean
-	$(MAKE) depends
-	$(MAKE)
+	$(MAKE) $(BUILD_DIR)
+	$(MAKE) $(GAME_OBJS)
+	$(MAKE) game$(ARCH).$(SHLIBEXT)
 
--include .depends
+
+clean:
+	rm -rf $(BUILD_DIR)
