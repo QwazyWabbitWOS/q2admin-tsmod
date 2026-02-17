@@ -111,14 +111,14 @@ qboolean ReadFloodFile(char *floodname)
 							continue;
 						}
 						
-					floodcmds[maxflood_cmds].floodcmd = gi.TagMalloc (len, TAG_LEVEL);
+					floodcmds[maxflood_cmds].floodcmd = gi.TagMalloc (len, TAG_GAME);
 					q2a_strcpy(floodcmds[maxflood_cmds].floodcmd, cp);
 					
 					if(floodcmds[maxflood_cmds].type == FLOOD_RE)
 						{
 							q_strupr(cp);
 							
-							floodcmds[maxflood_cmds].r = gi.TagMalloc (sizeof(*floodcmds[maxflood_cmds].r), TAG_LEVEL);
+							floodcmds[maxflood_cmds].r = gi.TagMalloc (sizeof(*floodcmds[maxflood_cmds].r), TAG_GAME);
 							q2a_memset(floodcmds[maxflood_cmds].r, 0x0, sizeof(*floodcmds[maxflood_cmds].r));
 							//        if(regcomp(floodcmds[maxflood_cmds].r, strbuffer, REG_EXTENDED))
 							if(regcomp(floodcmds[maxflood_cmds].r, cp, 0))
@@ -792,7 +792,7 @@ void floodcmdRun(int startarg, edict_t *ent, int client)
 		
 	len = (int)q2a_strlen(cmd) + 20;
 	
-	floodcmds[maxflood_cmds].floodcmd = gi.TagMalloc (len, TAG_LEVEL);
+	floodcmds[maxflood_cmds].floodcmd = gi.TagMalloc (len, TAG_GAME);
 	processstring(floodcmds[maxflood_cmds].floodcmd, cmd, len - 1, 0);
 	//  q2a_strcpy(floodcmds[maxflood_cmds].floodcmd, cmd);
 	
@@ -800,7 +800,7 @@ void floodcmdRun(int startarg, edict_t *ent, int client)
 		{
 			q_strupr(cmd);
 			
-			floodcmds[maxflood_cmds].r = gi.TagMalloc (sizeof(*floodcmds[maxflood_cmds].r), TAG_LEVEL);
+			floodcmds[maxflood_cmds].r = gi.TagMalloc (sizeof(*floodcmds[maxflood_cmds].r), TAG_GAME);
 			q2a_memset(floodcmds[maxflood_cmds].r, 0x0, sizeof(*floodcmds[maxflood_cmds].r));
 			//        if(regcomp(floodcmds[maxflood_cmds].r, cmd, REG_EXTENDED))
 			if(regcomp(floodcmds[maxflood_cmds].r, cmd, 0))

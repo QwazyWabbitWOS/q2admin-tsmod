@@ -556,6 +556,7 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 		}
 		
 	proxyinfo[-1].inuse = 1;
+
 	freeBanLists();
 	freeLRconLists();
 	freeFloodLists();

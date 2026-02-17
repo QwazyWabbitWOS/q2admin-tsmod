@@ -22,10 +22,16 @@ zbotdetect  "No"
 
 ;
 ; Only for use in windows.
-; This tells the q2admin dll that it is running in the quake2 directory (or the release 
-; directory for v3.20+).  When set to 'No' the dll is being loaded from the mod directory
-; like the linux / solaris versions. For win32 the old mod dll must be called 
-; 'gamex86.real.dll' for this to work.
+; This tells the q2admin dll that it is running in the quake2 directory (or the release/debug
+; directory for v3.20+ or r1q2ded).
+; When set to 'No' the dll is being loaded from the mod directory and is named gamex86.dll
+; like the linux versions. The actual mod dll must be named 'gamex86.real.dll' for this to work.
+; When this is set to Yes, the q2admin dll is in either quake2\release\ or quake2\debug\ directory
+; and the mod dll is named without the .real inserted. The r1q2ded server automatically loads
+; the q2admin dll from the release or debug directory and the q2admin dll loads the actual game dll from
+; the mod folder according to the "game" cvar set in the command line.
+; For q2proded, use `+set sys_forcegamelib quake2\<debug|release>\gamex86_64.dll ` on the command line to
+; replicate the r1q2ded functionality.
 ;
 ;quake2dirsupport "Yes"
 

@@ -129,14 +129,14 @@ qboolean ReadVoteFile(char *votename)
 							continue;
 						}
 						
-					votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_LEVEL);
+					votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_GAME);
 					q2a_strcpy(votecmds[maxvote_cmds].votecmd, cp);
 					
 					if(votecmds[maxvote_cmds].type == VOTE_RE)
 						{
 							q_strupr(cp);
 							
-							votecmds[maxvote_cmds].r = gi.TagMalloc (sizeof(*votecmds[maxvote_cmds].r), TAG_LEVEL);
+							votecmds[maxvote_cmds].r = gi.TagMalloc (sizeof(*votecmds[maxvote_cmds].r), TAG_GAME);
 							q2a_memset(votecmds[maxvote_cmds].r, 0x0, sizeof(*votecmds[maxvote_cmds].r));
 							//        if(regcomp(votecmds[maxvote_cmds].r, strbuffer, REG_EXTENDED))
 							if(regcomp(votecmds[maxvote_cmds].r, cp, 0))
@@ -349,7 +349,7 @@ void votecmdRun(int startarg, edict_t *ent, int client)
 		
 	len = q2a_strlen(cmd) + 20;
 	
-	votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_LEVEL);
+	votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_GAME);
 	processstring(votecmds[maxvote_cmds].votecmd, cmd, (int)len - 1, 0);
 	//  q2a_strcpy(votecmds[maxvote_cmds].votecmd, cmd);
 	
@@ -357,7 +357,7 @@ void votecmdRun(int startarg, edict_t *ent, int client)
 		{
 			q_strupr(cmd);
 			
-			votecmds[maxvote_cmds].r = gi.TagMalloc (sizeof(*votecmds[maxvote_cmds].r), TAG_LEVEL);
+			votecmds[maxvote_cmds].r = gi.TagMalloc (sizeof(*votecmds[maxvote_cmds].r), TAG_GAME);
 			q2a_memset(votecmds[maxvote_cmds].r, 0x0, sizeof(*votecmds[maxvote_cmds].r));
 			//        if(regcomp(votecmds[maxvote_cmds].r, cmd, REG_EXTENDED))
 			if(regcomp(votecmds[maxvote_cmds].r, cmd, 0))

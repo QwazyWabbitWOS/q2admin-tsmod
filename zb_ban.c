@@ -81,7 +81,7 @@ qboolean ReadBanFile(char *bfname)
 							// BAN: [+/-(-)] [ALL/[NAME [LIKE/RE] "name"/BLANK/ALL(ALL)] [IP xxx[.xxx(0)[.xxx(0)[.xxx(0)]]][/yy(32)]] [PASSWORD "xxx"] [MAX 0-xxx(0)] [FLOOD xxx xxx xxx] [MSG "xxx"]
 							
 							// allocate memory for ban record
-							newentry = gi.TagMalloc (sizeof(baninfo_t), TAG_LEVEL);
+							newentry = gi.TagMalloc (sizeof(baninfo_t), TAG_GAME);
 							
 							newentry->loadType = LT_PERM;
 							newentry->timeout = 0.0;
@@ -205,7 +205,7 @@ qboolean ReadBanFile(char *bfname)
 												{ // compile RE
 													q2a_strcpy(strbuffer, newentry->nick);
 													q_strupr(strbuffer);
-													newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_LEVEL);
+													newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_GAME);
 													q2a_memset(newentry->r, 0x0, sizeof(*newentry->r));
 													//              if(regcomp(newentry->r, strbuffer, REG_EXTENDED))
 													if(regcomp(newentry->r, strbuffer, 0))
@@ -454,7 +454,7 @@ qboolean ReadBanFile(char *bfname)
 									
 									if(num)
 										{
-											newentry->msg = gi.TagMalloc (num + 1, TAG_LEVEL);
+											newentry->msg = gi.TagMalloc (num + 1, TAG_GAME);
 											q2a_strcpy(newentry->msg, buffer2);
 										}
 									else
@@ -504,7 +504,7 @@ qboolean ReadBanFile(char *bfname)
 							// CHATBAN: [LIKE/RE(LIKE)] "xxx" [MSG "xxx"]
 							
 							// allocate memory for chat ban record
-							cnewentry = gi.TagMalloc (sizeof(chatbaninfo_t), TAG_LEVEL);
+							cnewentry = gi.TagMalloc (sizeof(chatbaninfo_t), TAG_GAME);
 							
 							cnewentry->loadType = LT_PERM;
 							cnewentry->r = 0;
@@ -553,7 +553,7 @@ qboolean ReadBanFile(char *bfname)
 										{ // compile RE
 											q2a_strcpy(strbuffer, cnewentry->chat);
 											q_strupr(strbuffer);
-											cnewentry->r = gi.TagMalloc (sizeof(*cnewentry->r), TAG_LEVEL);
+											cnewentry->r = gi.TagMalloc (sizeof(*cnewentry->r), TAG_GAME);
 											q2a_memset(cnewentry->r, 0x0, sizeof(*cnewentry->r));
 											//            if(regcomp(cnewentry->r, strbuffer, REG_EXTENDED))
 											if(regcomp(cnewentry->r, strbuffer, 0))
@@ -596,7 +596,7 @@ qboolean ReadBanFile(char *bfname)
 									
 									if(num)
 										{
-											cnewentry->msg = gi.TagMalloc (num + 1, TAG_LEVEL);
+											cnewentry->msg = gi.TagMalloc (num + 1, TAG_GAME);
 											if (!cnewentry->msg) {
 												gi.error("TagMalloc failed in %s", __func__);
 												return FALSE; // never happens
@@ -788,7 +788,7 @@ void banRun(int startarg, edict_t *ent, int client)
 	startarg++;
 	
 	// allocate memory for ban record
-	newentry = gi.TagMalloc (sizeof(baninfo_t), TAG_LEVEL);
+	newentry = gi.TagMalloc (sizeof(baninfo_t), TAG_GAME);
 	newentry->r = 0;
 	
 	q2a_strcpy(savecmd, "BAN: ");
@@ -986,7 +986,7 @@ void banRun(int startarg, edict_t *ent, int client)
 									q2a_strcpy(strbuffer, newentry->nick);
 									q_strupr(strbuffer);
 									
-									newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_LEVEL);
+									newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_GAME);
 									q2a_memset(newentry->r, 0x0, sizeof(*newentry->r));
 									//          if(regcomp(newentry->r, strbuffer, REG_EXTENDED))
 									if(regcomp(newentry->r, strbuffer, 0))
@@ -1027,7 +1027,7 @@ void banRun(int startarg, edict_t *ent, int client)
 							q2a_strcpy(strbuffer, newentry->nick);
 							q_strupr(strbuffer);
 							
-							newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_LEVEL);
+							newentry->r = gi.TagMalloc (sizeof(*newentry->r), TAG_GAME);
 							q2a_memset(newentry->r, 0x0, sizeof(*newentry->r));
 							//        if(regcomp(newentry->r, strbuffer, REG_EXTENDED))
 							if(regcomp(newentry->r, strbuffer, 0))
@@ -1481,7 +1481,7 @@ void banRun(int startarg, edict_t *ent, int client)
 			
 			if(num)
 				{
-					newentry->msg = gi.TagMalloc (num + 1, TAG_LEVEL);
+					newentry->msg = gi.TagMalloc (num + 1, TAG_GAME);
 					q2a_strcpy(newentry->msg, buffer2);
 				}
 			else
@@ -2191,7 +2191,7 @@ void chatbanRun(int startarg, edict_t *ent, int client)
 	startarg++;
 	
 	// allocate memory for ban record
-	cnewentry = gi.TagMalloc (sizeof(chatbaninfo_t), TAG_LEVEL);
+	cnewentry = gi.TagMalloc (sizeof(chatbaninfo_t), TAG_GAME);
 	cnewentry->r = 0;
 	
 	q2a_strcpy(savecmd, "CHATBAN: ");
@@ -2250,7 +2250,7 @@ void chatbanRun(int startarg, edict_t *ent, int client)
 			q2a_strcpy(strbuffer, cnewentry->chat);
 			q_strupr(strbuffer);
 			
-			cnewentry->r = gi.TagMalloc (sizeof(*cnewentry->r), TAG_LEVEL);
+			cnewentry->r = gi.TagMalloc (sizeof(*cnewentry->r), TAG_GAME);
 			q2a_memset(cnewentry->r, 0x0, sizeof(*cnewentry->r));
 			//    if(regcomp(cnewentry->r, strbuffer, REG_EXTENDED))
 			if(regcomp(cnewentry->r, strbuffer, 0))
@@ -2305,7 +2305,7 @@ void chatbanRun(int startarg, edict_t *ent, int client)
 			
 			if(num)
 				{
-					cnewentry->msg = gi.TagMalloc (num + 1, TAG_LEVEL);
+					cnewentry->msg = gi.TagMalloc (num + 1, TAG_GAME);
 					q2a_strcpy(cnewentry->msg, buffer2);
 				}
 			else

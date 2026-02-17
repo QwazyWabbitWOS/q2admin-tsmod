@@ -114,14 +114,14 @@ qboolean ReadDisableFile(char *disablename)
 							continue;
 						}
 						
-					disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_LEVEL);
+					disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_GAME);
 					q2a_strcpy(disablecmds[maxdisable_cmds].disablecmd, cp);
 					
 					if(disablecmds[maxdisable_cmds].type == DISABLE_RE)
 						{
 							q_strupr(cp);
 							
-							disablecmds[maxdisable_cmds].r = gi.TagMalloc (sizeof(*disablecmds[maxdisable_cmds].r), TAG_LEVEL);
+							disablecmds[maxdisable_cmds].r = gi.TagMalloc (sizeof(*disablecmds[maxdisable_cmds].r), TAG_GAME);
 							q2a_memset(disablecmds[maxdisable_cmds].r, 0x0, sizeof(*disablecmds[maxdisable_cmds].r));
 							//        if(regcomp(disablecmds[maxdisable_cmds].r, strbuffer, REG_EXTENDED))
 							if(regcomp(disablecmds[maxdisable_cmds].r, cp, 0))
@@ -335,7 +335,7 @@ void disablecmdRun(int startarg, edict_t *ent, int client)
 		
 	len = (int)q2a_strlen(cmd) + 20;
 	
-	disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_LEVEL);
+	disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_GAME);
 	processstring(disablecmds[maxdisable_cmds].disablecmd, cmd, len - 1, 0);
 	//  q2a_strcpy(disablecmds[maxdisable_cmds].disablecmd, cmd);
 	
@@ -343,7 +343,7 @@ void disablecmdRun(int startarg, edict_t *ent, int client)
 		{
 			q_strupr(cmd);
 			
-			disablecmds[maxdisable_cmds].r = gi.TagMalloc (sizeof(*disablecmds[maxdisable_cmds].r), TAG_LEVEL);
+			disablecmds[maxdisable_cmds].r = gi.TagMalloc (sizeof(*disablecmds[maxdisable_cmds].r), TAG_GAME);
 			q2a_memset(disablecmds[maxdisable_cmds].r, 0x0, sizeof(*disablecmds[maxdisable_cmds].r));
 			//        if(regcomp(disablecmds[maxdisable_cmds].r, cmd, REG_EXTENDED))
 			if(regcomp(disablecmds[maxdisable_cmds].r, cmd, 0))

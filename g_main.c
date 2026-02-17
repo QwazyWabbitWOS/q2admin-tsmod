@@ -150,7 +150,7 @@ void ShutdownGame(void)
 
 #ifdef __GNUC__
 	dlclose(hdll);
-#elif defined(WIN32)
+#elif defined(_WIN32)
 	FreeLibrary(hdll);
 #endif
 
@@ -268,7 +268,7 @@ game_export_t* GetGameAPI(game_import_t* import)
 	zbot_testchar1 = '0' + (int)(9.9 * random());
 	zbot_testchar2 = '0' + (int)(9.9 * random());
 
-#ifdef WIN32
+#ifdef _WIN32
 	if (quake2dirsupport) {
 		sprintf(dllname, "./%s/%s", moddir, DLLNAME);
 	}
@@ -281,13 +281,13 @@ game_export_t* GetGameAPI(game_import_t* import)
 	loadtype = soloadlazy ? RTLD_LAZY : RTLD_NOW;
 	sprintf(dllname, "%s/%s", moddir, DLLNAMEMODDIR);
 	hdll = dlopen(dllname, loadtype);
-#elif defined(WIN32)
+#elif defined(_WIN32)
 	hdll = LoadLibrary(dllname);
 #endif
 
 	if (hdll == NULL)
 	{
-#if defined WIN32
+#if defined _WIN32
 		unsigned long stat = GetLastError();
 		gi.dprintf("Unable to load mod DLL %s, error %u.\n", dllname, stat);
 #endif
@@ -296,13 +296,13 @@ game_export_t* GetGameAPI(game_import_t* import)
 
 #ifdef __GNUC__
 		hdll = dlopen(dllname, loadtype);
-#elif defined(WIN32)
+#elif defined(_WIN32)
 		hdll = LoadLibrary(dllname);
 #endif
 
 		if (hdll == NULL)
 		{
-#if defined(WIN32)
+#if defined(_WIN32)
 			stat = GetLastError();
 			gi.dprintf("Unable to load DLL %s, error %u.\n", dllname, stat);
 			return &globals;
@@ -317,7 +317,7 @@ game_export_t* GetGameAPI(game_import_t* import)
 
 #ifdef __GNUC__
 	getapi = (GAMEAPI*)dlsym(hdll, "GetGameAPI");
-#elif defined(WIN32)
+#elif defined(_WIN32)
 	getapi = (GAMEAPI*)GetProcAddress(hdll, "GetGameAPI");
 #endif
 
@@ -325,7 +325,7 @@ game_export_t* GetGameAPI(game_import_t* import)
 	{
 #ifdef __GNUC__
 		dlclose(hdll);
-#elif defined(WIN32)
+#elif defined(_WIN32)
 		FreeLibrary(hdll);
 #endif
 

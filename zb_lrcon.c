@@ -130,7 +130,7 @@ qboolean ReadLRconFile(char *lrcname)
 					// allocate memory for password and copy into buffer
 
 					//r1ch 2005-01-26 fix insufficient memory allocation BEGIN
-					lrconcmds[maxlrcon_cmds].password = gi.TagMalloc (len+1, TAG_LEVEL);
+					lrconcmds[maxlrcon_cmds].password = gi.TagMalloc (len+1, TAG_GAME);
 					//r1ch 2005-01-26 fix insufficient memory allocation END
 
 					pp = lrconcmds[maxlrcon_cmds].password;
@@ -151,14 +151,14 @@ qboolean ReadLRconFile(char *lrcname)
 							continue;
 						}
 						
-					lrconcmds[maxlrcon_cmds].lrconcmd = gi.TagMalloc (len, TAG_LEVEL);
+					lrconcmds[maxlrcon_cmds].lrconcmd = gi.TagMalloc (len, TAG_GAME);
 					q2a_strcpy(lrconcmds[maxlrcon_cmds].lrconcmd, cp);
 					
 					if(lrconcmds[maxlrcon_cmds].type == LRC_RE)
 						{
 							q_strupr(cp);
 							
-							lrconcmds[maxlrcon_cmds].r = gi.TagMalloc (sizeof(*lrconcmds[maxlrcon_cmds].r), TAG_LEVEL);
+							lrconcmds[maxlrcon_cmds].r = gi.TagMalloc (sizeof(*lrconcmds[maxlrcon_cmds].r), TAG_GAME);
 							q2a_memset(lrconcmds[maxlrcon_cmds].r, 0x0, sizeof(*lrconcmds[maxlrcon_cmds].r));
 							//        if(regcomp(lrconcmds[maxlrcon_cmds].r, strbuffer, REG_EXTENDED))
 							if(regcomp(lrconcmds[maxlrcon_cmds].r, cp, 0))
@@ -462,7 +462,7 @@ void lrconRun(int startarg, edict_t *ent, int client)
 		
 	len = (int)q2a_strlen(cmd) + 1;
 	
-	lrconcmds[maxlrcon_cmds].password = gi.TagMalloc (len, TAG_LEVEL);
+	lrconcmds[maxlrcon_cmds].password = gi.TagMalloc (len, TAG_GAME);
 	
 	q2a_strcpy(lrconcmds[maxlrcon_cmds].password, cmd);
 	
@@ -478,7 +478,7 @@ void lrconRun(int startarg, edict_t *ent, int client)
 		
 	len = (int)q2a_strlen(cmd) + 20;
 	
-	lrconcmds[maxlrcon_cmds].lrconcmd = gi.TagMalloc (len, TAG_LEVEL);
+	lrconcmds[maxlrcon_cmds].lrconcmd = gi.TagMalloc (len, TAG_GAME);
 	processstring(lrconcmds[maxlrcon_cmds].lrconcmd, cmd, len - 1, 0);
 	//  q2a_strcpy(lrconcmds[maxlrcon_cmds].lrconcmd, cmd);
 	
@@ -486,7 +486,7 @@ void lrconRun(int startarg, edict_t *ent, int client)
 		{
 			q_strupr(cmd);
 			
-			lrconcmds[maxlrcon_cmds].r = gi.TagMalloc (sizeof(*lrconcmds[maxlrcon_cmds].r), TAG_LEVEL);
+			lrconcmds[maxlrcon_cmds].r = gi.TagMalloc (sizeof(*lrconcmds[maxlrcon_cmds].r), TAG_GAME);
 			q2a_memset(lrconcmds[maxlrcon_cmds].r, 0x0, sizeof(*lrconcmds[maxlrcon_cmds].r));
 			//        if(regcomp(lrconcmds[maxlrcon_cmds].r, cmd, REG_EXTENDED))
 			if(regcomp(lrconcmds[maxlrcon_cmds].r, cmd, 0))
