@@ -60,25 +60,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define	snprintf _snprintf
 #endif
 
-#if defined _M_IX86 && !defined C_ONLY
-#define id386 1
-#else
-#define id386 0
-#endif
 
-#if defined _M_ALPHA && !defined C_ONLY
-#define idaxp 1
-#else
-#define idaxp 0
-#endif
-
+#define BIT(n)  (1U << (n))
 typedef unsigned char byte;
 typedef enum{false, true} qboolean;
-
-
-#ifndef NULL
-#define NULL ((void *)0)
-#endif
 
 
 // angle indexes

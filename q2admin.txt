@@ -669,6 +669,16 @@ lrcon_timeout "2"
 ;
 mapcfgexec "No"
 
+
+; Enables stuffing custom configurations for clients to execute at map change. Bitmap.
+; 0 = disabled (default)
+; 1 = send "set map_name <currentmapname>"
+; 2 = send "exec cfg/<mapname>.cfg"
+; 4 = send "exec cfg/all.cfg"
+;
+client_map_cfg "0"
+
+
 ;
 ; Print messages when clients use the play sound commands.  It tells who is playing the sound and to whom. 
 ; (all/team/private)

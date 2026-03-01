@@ -42,7 +42,7 @@ char gmapname[MAX_QPATH];
 //*** UPDATE START ***
 int USERINFOCHANGE_TIME = 60;
 int USERINFOCHANGE_COUNT = 40;
-int client_map_cfg = 6;
+int client_map_cfg = 0;
 int gl_driver_max_changes = 3;
 int gl_driver_check = 0;
 int max_pmod_noreply = 2;

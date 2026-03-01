@@ -1329,17 +1329,17 @@ void G_RunFrame(void)
 			}
 			else if (command == QCMD_EXECMAPCFG)
 			{
-				if (client_map_cfg & 1)
+				if (client_map_cfg & CLMAPCFG_SETMAP)
 				{
 					sprintf(buffer, "set map_name %s\n", gmapname);
 					stuffcmd(ent, buffer);
 				}
-				else if (client_map_cfg & 2)
+				if (client_map_cfg & CLMAPCFG_EXACT)
 				{
 					sprintf(buffer, "exec cfg/%s.cfg\n", gmapname);
 					stuffcmd(ent, buffer);
 				}
-				else if (client_map_cfg & 4)
+				if (client_map_cfg & CLMAPCFG_ALL)
 				{
 					sprintf(buffer, "exec cfg/all.cfg\n");
 					stuffcmd(ent, buffer);

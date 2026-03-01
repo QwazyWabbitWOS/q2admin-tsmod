@@ -1318,6 +1318,10 @@ void ADMIN_dumpuser(edict_t* ent, int client, int user, qboolean check);
 int  ADMIN_process_command(edict_t* ent, int client);
 
 extern int   client_map_cfg;
+#define CLMAPCFG_SETMAP     BIT(1)  // set the map_name variable on client
+#define CLMAPCFG_EXACT      BIT(2)  // exec <mapname>.cfg
+#define CLMAPCFG_ALL        BIT(3)  // exec all.cfg
+
 extern qboolean  do_franck_check;
 extern qboolean  q2a_command_check;
 extern qboolean  do_vid_restart;
