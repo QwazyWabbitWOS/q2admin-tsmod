@@ -1,5 +1,5 @@
 
-# Version: q2admin 1.17.48-tsmod-2
+# Version: q2admin 1.17.50-tsmod-3
 
 This is Q2Admin by Shane Powell with R1CH's security patches applied and a couple tweaks to prevent kicking of players for false positives (Q2Admin would think a player was a bot when they were merely lagging badly.)
 
