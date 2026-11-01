@@ -17,7 +17,6 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      # Using the absolute latest v4 minor tag to ensure Node 24 support
       uses: actions/checkout@v4.2.2
       with:
         submodules: true
@@ -28,6 +27,8 @@ jobs:
     - name: Setup vcpkg and Install Dependencies
       uses: lukka/run-vcpkg@v11
       with:
+        # Forces the action to use the perfectly working version pre-installed on the runner
+        vcpkgDirectory: 'C:\vcpkg'
         runVcpkgInstall: true
 
     - name: Build with MSBuild

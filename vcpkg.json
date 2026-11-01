@@ -4,6 +4,5 @@
   "version-string": "1.17.51",
   "dependencies": [
     "pcre2"
-  ],
-  "builtin-baseline": "2aa7290a65668efbf98f26a1005fbc08e33ef1fa"
+  ]
 }
