@@ -121,6 +121,7 @@
     </None>
     <None Include="vcpkg.json" />
     <None Include=".github\workflows\build.yml" />
+    <None Include="vcpkg-configuration.json" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="zbot.rc">

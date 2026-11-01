@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+# Set global environment settings for the entire run window
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   build:
     runs-on: windows-2022
@@ -27,8 +31,6 @@ jobs:
     - name: Setup vcpkg and Install Dependencies
       uses: lukka/run-vcpkg@v11
       with:
-        # Forces the action to use the perfectly working version pre-installed on the runner
-        vcpkgDirectory: 'C:\vcpkg'
         runVcpkgInstall: true
 
     - name: Build with MSBuild

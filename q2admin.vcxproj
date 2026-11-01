@@ -605,6 +605,7 @@
     <None Include=".github\workflows\build.yml" />
     <None Include="Makefile" />
     <None Include="readme.md" />
+    <None Include="vcpkg-configuration.json" />
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
