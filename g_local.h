@@ -37,13 +37,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <ctype.h>
 
-/* Use our local regex.c and .h on Windows but
-   Posix library regex on *nix systems.
-   This makes it 64-bit clean on GNU Linux
- */
- /* Added __GNUC__ condition for MinGW64 to use its own regex lib. //QW// */
+#ifndef PCRE2_STATIC
+#define PCRE2_STATIC
+#endif
+
+/* Added __GNUC__ condition for MinGW64 to use its own regex lib. //QW// */
 #if defined _WIN32 && !defined __GNUC__
-#include "regex.h"
+#include "pcre2posix.h"	//QW// Now using vcpkg pcre2 as static lib in MSBUILD.
 #else
 #include <regex.h>
 #endif
@@ -1284,7 +1284,7 @@ typedef struct
 	int   level;
 } admin_type;
 
-#define Q2ADMINVERSION   "1.17.50-tsmod-3"
+#define Q2ADMINVERSION  "1.17.51-tsmod-3"
 #define DEFAULTQ2AVER   "1.0"
 #define DEFAULTQ2AMSG   "\nThis server requires %s anti cheat client.\n"
 #define MAX_ADMINS    128

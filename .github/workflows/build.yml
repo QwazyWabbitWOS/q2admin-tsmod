@@ -1,0 +1,47 @@
+name: Build Quake II Mod
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    strategy:
+      matrix:
+        # This matches your exact MSBuild platform configurations
+        platform: [Win32, x64]
+        configuration: [Release]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Integrate and Restore vcpkg
+      uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgArguments: 'pcre2:x86-windows-static-md pcre2:x64-windows-static-md'
+        # Ensures vcpkg caches dependencies so subsequent pipeline runs take seconds
+        appendedCacheKey: ${{ matrix.platform }}
+
+    - name: Build with MSBuild
+      run: |
+        msbuild q2admin.sln `
+          -property:Configuration=${{ matrix.configuration }} `
+          -property:Platform=${{ matrix.platform }} `
+          -maxCpuCount
+
+    - name: Upload Binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: q2admin-${{ matrix.platform }}-${{ matrix.configuration }}
+        path: |
+          # If compiling Win32, upload from the standard Release directory
+          # If compiling x64, upload from the x64/Release directory
+          ${{ matrix.platform == 'Win32' && 'q2admin/Release/*.dll' || 'q2admin/x64/Release/*.dll' }}
