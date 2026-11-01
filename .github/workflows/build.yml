@@ -35,5 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: q2admin-${{ matrix.platform }}-${{ matrix.configuration }}
+        # The ** recursive glob looks into all nested subdirectories for your target files
         path: |
-          ${{ matrix.platform == 'Win32' && 'q2admin/Release/*.dll' || 'q2admin/x64/Release/*.dll' }}
+          **/${{ matrix.platform == 'Win32' && 'Release/*.dll' || 'x64/Release/*.dll' }}
