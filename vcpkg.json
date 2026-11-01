@@ -1,9 +1,9 @@
 {
   "$schema": "https://githubusercontent.com",
   "name": "q2admin",
-  "version-string": "1.0.0",
+  "version-string": "1.17.51",
   "dependencies": [
     "pcre2"
   ],
-  "builtin-baseline": "802422fa818b209e7c10b77134440c9dc84af97b"
+  "builtin-baseline": "2aa7290a65668efbf98f26a1005fbc08e33ef1fa"
 }

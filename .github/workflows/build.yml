@@ -32,7 +32,7 @@ jobs:
 
     - name: Build with MSBuild
       run: |
-        msbuild your-solution-file.sln `
+        msbuild q2admin.sln `
           -property:Configuration=${{ matrix.configuration }} `
           -property:Platform=${{ matrix.platform }} `
           -maxCpuCount
