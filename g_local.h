@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <ctype.h>
 
+//QW// Compile with linkage to pcre2:*-windows-static-md per arch.
 #ifndef PCRE2_STATIC
 #define PCRE2_STATIC
 #endif

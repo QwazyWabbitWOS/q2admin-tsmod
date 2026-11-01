@@ -1,6 +1,7 @@
 Debug/
 Release/
 x64/
+vcpkg_installed/
 build/
 ipch/
 *.o
