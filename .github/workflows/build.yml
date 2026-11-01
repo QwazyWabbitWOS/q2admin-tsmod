@@ -12,27 +12,29 @@ jobs:
 
     strategy:
       matrix:
-        # This matches your exact MSBuild platform configurations
         platform: [Win32, x64]
         configuration: [Release]
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+      with:
+        submodules: true # Good practice if your project relies on submodules
 
     - name: Set up MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Integrate and Restore vcpkg
+    # This handles vcpkg setup, boots the binary cache, and runs the install automatically
+    - name: Setup vcpkg and Install Dependencies
       uses: lukka/run-vcpkg@v11
       with:
-        vcpkgArguments: 'pcre2:x86-windows-static-md pcre2:x64-windows-static-md'
-        # Ensures vcpkg caches dependencies so subsequent pipeline runs take seconds
-        appendedCacheKey: ${{ matrix.platform }}
+        runVcpkgInstall: true
+        # Forces vcpkg to fetch the latest stable repository definition commit on the cloud runner
+        vcpkgGitCommitId: '9edb1b8e590cc086563301d735cae4b6e732d2d2' 
 
     - name: Build with MSBuild
       run: |
-        msbuild q2admin.sln `
+        msbuild your-solution-file.sln `
           -property:Configuration=${{ matrix.configuration }} `
           -property:Platform=${{ matrix.platform }} `
           -maxCpuCount
@@ -42,6 +44,4 @@ jobs:
       with:
         name: q2admin-${{ matrix.platform }}-${{ matrix.configuration }}
         path: |
-          # If compiling Win32, upload from the standard Release directory
-          # If compiling x64, upload from the x64/Release directory
           ${{ matrix.platform == 'Win32' && 'q2admin/Release/*.dll' || 'q2admin/x64/Release/*.dll' }}

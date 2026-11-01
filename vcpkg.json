@@ -1,0 +1,8 @@
+{
+  "$schema": "https://githubusercontent.com",
+  "name": "q2admin",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "pcre2"
+  ]
+}
