@@ -1,7 +1,0 @@
-{
-  "default-registry": {
-    "kind": "git",
-    "baseline": "07bf89d750058b76da110a240ffbe32c02747169",
-    "repository": "https://github.com"
-  }
-}

@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
-# Set global environment settings for the entire run window
-env:
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-
 jobs:
   build:
     runs-on: windows-2022
@@ -21,23 +17,17 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4.2.2
-      with:
-        submodules: true
+      uses: actions/checkout@v4
 
     - name: Set up MSBuild
       uses: microsoft/setup-msbuild@v3
-
-    - name: Setup vcpkg and Install Dependencies
-      uses: lukka/run-vcpkg@v11
-      with:
-        runVcpkgInstall: true
 
     - name: Build with MSBuild
       run: |
         msbuild q2admin.sln `
           -property:Configuration=${{ matrix.configuration }} `
           -property:Platform=${{ matrix.platform }} `
+          -property:VcpkgEnableManifest=true `
           -maxCpuCount
 
     - name: Upload Binaries
