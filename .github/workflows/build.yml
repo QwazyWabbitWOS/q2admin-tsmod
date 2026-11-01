@@ -35,6 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: q2admin-${{ matrix.platform }}-${{ matrix.configuration }}
-        # The ** recursive glob looks into all nested subdirectories for your target files
+        # Targets the absolute path where your local testing workflow drops the compiled assets
         path: |
-          **/${{ matrix.platform == 'Win32' && 'Release/*.dll' || 'x64/Release/*.dll' }}
+          ${{ matrix.platform == 'Win32' && 'D:/release/gamex86.dll' || 'D:/release/gamex86_64.dll' }}
