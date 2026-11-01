@@ -19,17 +19,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        submodules: true # Good practice if your project relies on submodules
+        submodules: true
 
     - name: Set up MSBuild
-      uses: microsoft/setup-msbuild@v2
+      # Upgraded from v2 to v3 to support Node 24 runners safely
+      uses: microsoft/setup-msbuild@v3
 
-    # This handles vcpkg setup, boots the binary cache, and runs the install automatically
     - name: Setup vcpkg and Install Dependencies
       uses: lukka/run-vcpkg@v11
       with:
         runVcpkgInstall: true
-        # Forces vcpkg to fetch the latest stable repository definition commit on the cloud runner
         vcpkgGitCommitId: '9edb1b8e590cc086563301d735cae4b6e732d2d2' 
 
     - name: Build with MSBuild
