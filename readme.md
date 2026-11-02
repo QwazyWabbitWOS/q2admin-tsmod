@@ -55,6 +55,8 @@ You can set this via CMD or Powershell command lines or via the Settings | Advan
 
 This method is used so VS Projects don't have to know the absolute path to the game folder. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a `Batch Rebuild` of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin. Under Linux, the GNUmakefile builds an un-stripped shared object (.so) file so it's debuggable under gdb.
 
+Beginning with v1.17.51 the project depends on pcre2 from vcpkg. Install it with `vcpkg install pcre2:x64-windows-static-md` or `vcpkg install pcre2:x86-windows-static-md` and the project will statically link to it. This more closely aligns the regex functionality between Windows and Linux versions of the dll. The project is set to automatically install and build it but I have not tested this except in the GitHub virtual build environment. It should work in the desktop environment but if it doesn't please let me know.
+
 ## Building on Linux
 
 Clone this repository. Change to the directory containing the clone. Using `make all` will clean the build directory, rescan the source files for dependencies and recompile all source files and create the dll in your default architecture. Use cp or mv to place the dll into `quake2/release/`. Use `setarch i386 make all` to build a 32-bit dll on x64 Linux platforms. Refer to the comments in GNUmakefile for more details. `make clean` and `make depends` are also valid.
