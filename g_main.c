@@ -58,11 +58,15 @@ Note: r1q2 does this automatically. To obtain the same functionality in Q2PRO
 you must write: +set sys_forcegamelib quake2/release/gamex86_64.so
 on the command line that launches the server.
 
+DLLNAME is the name of the q2admin dll that the engine will load.
+DLLNAMEMODDIR is the name of the game dll that q2admin will load.
+
 */
 
-#ifdef __GNUC__
+#ifdef __GNUC__ //QW For GNUC or clang.
 void* hdll = NULL;
 
+//QW These first three are obsolete.
 #ifdef LINUXAXP
 #define DLLNAME   "gameaxp.so"
 #define DLLNAMEMODDIR   "gameaxp.real.so"
@@ -72,7 +76,7 @@ void* hdll = NULL;
 #elif defined(SOLARIS_SPARC)
 #define DLLNAME   "gamesparc.so"
 #define DLLNAMEMODDIR   "gamesparc.real.so"
-#elif defined (LINUX)
+#elif defined (__linux__) //QW Defined on all Linux operating systems.
 #if defined __i386__
 #define DLLNAME   "gamei386.so"
 #define DLLNAMEMODDIR "gamei386.real.so"
